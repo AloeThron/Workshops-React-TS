@@ -1,35 +1,25 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useSelector } from "react-redux";
+import Page1 from "./pages/Page1";
+import Page2 from "./pages/Page2";
+import { counter1Selector } from "./store/slices/counter1Slice";
+import { counter2Selector } from "./store/slices/counter2Slice";
 
-function App() {
-  const [count, setCount] = useState(0)
+type Props = {};
+
+export default function App({}: Props) {
+  const counter1Reducer = useSelector(counter1Selector);
+  const counter2Reducer = useSelector(counter2Selector);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div>
+      <h1>App</h1>
+      <span>
+        {counter1Reducer.loading && "Loading.."} {counter1Reducer.counter}/
+        {counter2Reducer.loading && "Loading.."} {counter2Reducer.counter}
+      </span>
+      <Page1 />
+      <hr />
+      <Page2 />
+    </div>
+  );
 }
-
-export default App
